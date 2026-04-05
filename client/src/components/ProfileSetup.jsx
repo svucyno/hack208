@@ -242,31 +242,30 @@ const ProfileSetup = ({ onLogout }) => {
             />
           </div>
 
-          <button type="submit" className="btn btn-primary">{t('Save Profile')}</button>
+          <button type="submit" className="btn btn-primary" style={{ marginBottom: '1rem' }}>{t('Save Profile')}</button>
           
-          <div style={{ marginTop: '2rem', borderTop: '1px solid #eee', paddingTop: '1.5rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
             <button
               type="button"
               onClick={handleDeleteAccount}
               style={{
-                width: '100%',
-                padding: '0.75rem',
+                padding: '0.4rem 1rem',
                 background: 'transparent',
                 color: 'var(--danger)',
                 border: '1px solid var(--danger)',
-                borderRadius: 'var(--radius)',
+                borderRadius: '20px',
+                fontSize: '0.85rem',
                 fontWeight: '600',
                 cursor: 'pointer',
                 transition: 'all 0.2s',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center',
-                gap: '0.5rem'
+                gap: '0.4rem'
               }}
-              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(231, 76, 60, 0.1)'; }}
+              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(231, 76, 60, 0.08)'; }}
               onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; }}
             >
-              <Trash2 size={18} /> {t('Delete Account')}
+              <Trash2 size={14} /> {t('Delete Account')}
             </button>
           </div>
         </form>
