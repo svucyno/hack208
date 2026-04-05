@@ -62,6 +62,7 @@ export const translations = {
     // Profile Setup & Theme Settings
     "Profile Integration Complete": "Profile Integration Complete",
     "Your Profile": "Your Profile",
+    "Profile": "Profile",
     "Loading profile…": "Loading profile…",
     "Profile Avatar": "Profile Avatar",
     "Upload a JPG or PNG (max 2 MB)": "Upload a JPG or PNG (max 2 MB)",
@@ -227,6 +228,7 @@ export const translations = {
     // Profile Setup & Theme Settings
     "Profile Integration Complete": "प्रोफ़ाइल एकीकरण पूर्ण",
     "Your Profile": "आपकी प्रोफ़ाइल",
+    "Profile": "प्रोफ़ाइल",
     "Loading profile…": "प्रोफ़ाइल लोड हो रही है…",
     "Profile Avatar": "प्रोफ़ाइल अवतार",
     "Upload a JPG or PNG (max 2 MB)": "JPG या PNG अपलोड करें (अधिकतम 2 MB)",
@@ -392,6 +394,7 @@ export const translations = {
     // Profile Setup & Theme Settings
     "Profile Integration Complete": "ప్రొఫైల్ సమగ్రపరచడం పూర్తయింది",
     "Your Profile": "మీ ప్రొఫైల్",
+    "Profile": "ప్రొఫైల్",
     "Loading profile…": "ప్రొఫైల్‌ను లోడ్ చేస్తోంది…",
     "Profile Avatar": "ప్రొఫైల్ అవతార్",
     "Upload a JPG or PNG (max 2 MB)": "JPG లేదా PNG అప్‌లోడ్ చేయండి (గరిష్టంగా 2 MB)",

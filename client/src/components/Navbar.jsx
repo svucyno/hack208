@@ -96,7 +96,7 @@ const Navbar = ({ user, onLogout }) => {
                   e.currentTarget.style.color = 'var(--text-main)'; 
                 }}
               >
-                <User size={16} /> {t('Your Profile')}
+                <User size={16} /> {t('Profile')}
               </Link>
             </div>
           )}
