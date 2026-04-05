@@ -57,7 +57,7 @@ function isColorDark(hex) {
 }
 
 // ── Component ────────────────────────────────────────────────────────────────
-const ThemeSettings = () => {
+const ThemeSettings = ({ activePanel }) => {
   const { t } = useLanguage();
   const [selectedColor, setSelectedColor] = useState(
     localStorage.getItem('themeColor') || '#2ecc71'
@@ -99,10 +99,13 @@ const ThemeSettings = () => {
     applyBgColor(hex);
   };
 
+  if (!activePanel) return null;
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginTop: '2rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginTop: '1rem', animation: 'fadeIn 0.3s ease' }}>
 
       {/* ── Primary Color Card ────────────────────────────────────────────── */}
+      {activePanel === 'accent' && (
       <div className="card" style={{ padding: '1.75rem' }}>
         <h3 style={{
           borderBottom: '1px solid #eee', paddingBottom: '1rem',
@@ -158,8 +161,10 @@ const ThemeSettings = () => {
           </div>
         </div>
       </div>
+      )}
 
       {/* ── Background Color Card ─────────────────────────────────────────── */}
+      {activePanel === 'background' && (
       <div className="card" style={{ padding: '1.75rem' }}>
         <h3 style={{
           borderBottom: '1px solid #eee', paddingBottom: '1rem',
@@ -238,6 +243,7 @@ const ThemeSettings = () => {
           </span>
         </div>
       </div>
+      )}
 
     </div>
   );

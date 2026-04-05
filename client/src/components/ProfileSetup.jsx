@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api';
 import { useNavigate } from 'react-router-dom';
-import { Camera, Trash2, User } from 'lucide-react';
+import { Camera, Trash2, User, Palette, Layers } from 'lucide-react';
 import ThemeSettings from './ThemeSettings';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -13,6 +13,7 @@ const ProfileSetup = () => {
   });
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
+  const [activePanel, setActivePanel] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -77,9 +78,45 @@ const ProfileSetup = () => {
   return (
     <div style={{ maxWidth: '600px', margin: '2rem auto', padding: '1rem' }}>
       <div className="card" style={{ maxWidth: '100%' }}>
-        <h2 style={{ marginBottom: '1.5rem', color: 'var(--primary)', textAlign: 'center' }}>
-          {t('Your Profile')}
-        </h2>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
+          <h2 style={{ color: 'var(--primary)', margin: 0 }}>
+            {t('Your Profile')}
+          </h2>
+          <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <button 
+               type="button"
+               onClick={() => setActivePanel(prev => prev === 'accent' ? null : 'accent')}
+               style={{
+                 background: activePanel === 'accent' ? 'var(--primary)' : 'transparent',
+                 color: activePanel === 'accent' ? '#fff' : 'var(--text-main)',
+                 border: '1px solid var(--primary)',
+                 padding: '0.4rem 0.8rem',
+                 borderRadius: '20px',
+                 cursor: 'pointer',
+                 display: 'flex', gap: '0.4rem', alignItems: 'center',
+                 fontSize: '0.85rem', fontWeight: '500',
+                 transition: 'all 0.2s'
+               }}>
+               <Palette size={16} /> {t('Accent Color')}
+            </button>
+            <button 
+               type="button"
+               onClick={() => setActivePanel(prev => prev === 'background' ? null : 'background')}
+               style={{
+                 background: activePanel === 'background' ? 'var(--primary)' : 'transparent',
+                 color: activePanel === 'background' ? '#fff' : 'var(--text-main)',
+                 border: '1px solid var(--primary)',
+                 padding: '0.4rem 0.8rem',
+                 borderRadius: '20px',
+                 cursor: 'pointer',
+                 display: 'flex', gap: '0.4rem', alignItems: 'center',
+                 fontSize: '0.85rem', fontWeight: '500',
+                 transition: 'all 0.2s'
+               }}>
+               <Layers size={16} /> {t('Background Color')}
+            </button>
+          </div>
+        </div>
 
         {/* ── Avatar Section ── */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '2rem' }}>
@@ -197,7 +234,7 @@ const ProfileSetup = () => {
         </form>
       </div>
 
-      <ThemeSettings />
+      <ThemeSettings activePanel={activePanel} />
     </div>
   );
 };
