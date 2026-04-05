@@ -81,7 +81,7 @@ function App() {
         <Routes>
           <Route path="/auth" element={!token ? <Auth onLogin={handleLogin} /> : <Navigate to="/" />} />
           <Route path="/" element={token ? <Dashboard /> : <Navigate to="/auth" />} />
-          <Route path="/profile" element={token ? <ProfileSetup /> : <Navigate to="/auth" />} />
+          <Route path="/profile" element={token ? <ProfileSetup onLogout={handleLogout} /> : <Navigate to="/auth" />} />
           <Route path="/chat" element={token ? <Chatbot /> : <Navigate to="/auth" />} />
           <Route path="/bmi" element={<BMICalculator />} />
           <Route path="/nutrition" element={token ? <NutritionUpload /> : <Navigate to="/auth" />} />

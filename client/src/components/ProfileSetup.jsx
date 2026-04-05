@@ -5,7 +5,7 @@ import { Camera, Trash2, User, Palette, Layers } from 'lucide-react';
 import ThemeSettings from './ThemeSettings';
 import { useLanguage } from '../context/LanguageContext';
 
-const ProfileSetup = () => {
+const ProfileSetup = ({ onLogout }) => {
   const { t } = useLanguage();
   const [profile, setProfile] = useState({
     age: '', weight: '', height: '', gender: 'male',
@@ -38,6 +38,18 @@ const ProfileSetup = () => {
       navigate('/');
     } catch (err) {
       alert('Failed to update profile');
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    if (window.confirm(t('Are you sure you want to delete your account? This action cannot be undone.'))) {
+      try {
+        await api.delete('/auth/account');
+        onLogout();
+        navigate('/auth');
+      } catch (err) {
+        alert(t('Failed to delete account'));
+      }
     }
   };
 
@@ -231,6 +243,32 @@ const ProfileSetup = () => {
           </div>
 
           <button type="submit" className="btn btn-primary">{t('Save Profile')}</button>
+          
+          <div style={{ marginTop: '2rem', borderTop: '1px solid #eee', paddingTop: '1.5rem' }}>
+            <button
+              type="button"
+              onClick={handleDeleteAccount}
+              style={{
+                width: '100%',
+                padding: '0.75rem',
+                background: 'transparent',
+                color: 'var(--danger)',
+                border: '1px solid var(--danger)',
+                borderRadius: 'var(--radius)',
+                fontWeight: '600',
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.5rem'
+              }}
+              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(231, 76, 60, 0.1)'; }}
+              onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; }}
+            >
+              <Trash2 size={18} /> {t('Delete Account')}
+            </button>
+          </div>
         </form>
       </div>
 

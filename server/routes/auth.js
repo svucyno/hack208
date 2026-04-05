@@ -1,9 +1,24 @@
-const express = require('express');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Profile = require('../models/Profile');
+const FoodLog = require('../models/FoodLog');
+const WaterIntake = require('../models/WaterIntake');
+const Streak = require('../models/Streak');
+const ThemePreference = require('../models/ThemePreference');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const router = express.Router();
+
+// Middleware to authenticate JWT (Shared logic)
+const authenticate = (req, res, next) => {
+  const token = req.headers['authorization'];
+  if (!token) return res.status(401).json({ message: 'No token provided' });
+
+  jwt.verify(token.split(' ')[1], JWT_SECRET, (err, decoded) => {
+    if (err) return res.status(401).json({ message: 'Unauthorized' });
+    req.userId = decoded.id;
+    next();
+  });
+};
 
 const JWT_SECRET = 'your-very-secret-key-change-it'; // In production, use env variables
 
@@ -49,4 +64,25 @@ router.post('/login', async (req, res) => {
   }
 });
 
-module.exports = { router, JWT_SECRET };
+// Delete Account
+router.delete('/account', authenticate, async (req, res) => {
+  try {
+    const userId = req.userId;
+
+    // Delete all associated data
+    await Profile.destroy({ where: { userId } });
+    await FoodLog.destroy({ where: { userId } });
+    await WaterIntake.destroy({ where: { userId } });
+    await Streak.destroy({ where: { userId } });
+    await ThemePreference.destroy({ where: { userId } });
+
+    // Finally delete the user
+    await User.destroy({ where: { id: userId } });
+
+    res.json({ message: 'Account deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+module.exports = { router, JWT_SECRET, authenticate };
