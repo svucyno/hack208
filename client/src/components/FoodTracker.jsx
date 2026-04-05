@@ -51,18 +51,18 @@ const FoodTracker = ({ dailyTarget }) => {
   const exceedsTarget = dailyTarget && totalCalories > dailyTarget;
 
   return (
-    <div className="card" style={{ marginBottom: '2rem' }}>
+    <div className="card" style={{ padding: '1.5rem', marginBottom: '0', display: 'flex', flexDirection: 'column', height: '100%' }}>
       <h3 style={{ color: '#e67e22', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
         <Utensils size={20} /> {t('Daily Food Tracker')}
       </h3>
 
-      <form onSubmit={handleAddFood} style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem' }}>
+      <form onSubmit={handleAddFood} style={{ display: 'flex', gap: '0.75rem', marginBottom: '1.5rem' }}>
         <input
           type="text"
           placeholder={t("e.g. Rice, 2 Eggs, Apple")}
           value={foodName}
           onChange={(e) => setFoodName(e.target.value)}
-          style={{ flex: 1, padding: '0.75rem', borderRadius: 'var(--radius)', border: '1px solid #ddd', background: 'transparent', color: 'var(--text-main)', outline: 'none' }}
+          style={{ flex: 1, padding: '0.75rem 1rem', borderRadius: 'var(--radius)', border: '1px solid #ddd', background: 'transparent', color: 'var(--text-main)', outline: 'none' }}
           disabled={loading}
         />
         <button 
@@ -76,7 +76,7 @@ const FoodTracker = ({ dailyTarget }) => {
         </button>
       </form>
 
-      <div style={{ background: 'var(--background)', borderRadius: 'var(--radius)', padding: '1rem', minHeight: '100px', maxHeight: '250px', overflowY: 'auto' }}>
+      <div style={{ flex: 1, background: 'var(--background)', borderRadius: 'var(--radius)', padding: '1rem', minHeight: '120px', overflowY: 'auto' }}>
         {logs.length === 0 ? (
           <p style={{ textAlign: 'center', color: 'var(--text-muted)', margin: '2rem 0' }}>{t('No foods logged yet today.')}</p>
         ) : (
@@ -100,7 +100,7 @@ const FoodTracker = ({ dailyTarget }) => {
         )}
       </div>
 
-      <div style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '2px dashed #eee', paddingTop: '1rem' }}>
+      <div style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '2px dashed #eee', paddingTop: '1.5rem' }}>
         <span style={{ fontWeight: 'bold', fontSize: '1.1rem', color: 'var(--text-main)' }}>{t('Total Intake:')}</span>
         <span style={{ fontWeight: 'bold', fontSize: '1.25rem', color: exceedsTarget ? '#e74c3c' : 'var(--primary)' }}>
           {totalCalories} <span style={{ fontSize: '0.9rem', fontWeight: 'normal', color: 'var(--text-muted)' }}>{t('kcal')}</span> {dailyTarget && `/ ${dailyTarget}`}

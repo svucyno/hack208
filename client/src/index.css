@@ -47,7 +47,7 @@ body {
 
 .card {
   background: var(--card-bg);
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   width: 100%;
@@ -268,7 +268,7 @@ body.dark-mode .chat-quick-btn:hover {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
-  padding: 1.5rem;
+  padding: 0;
 }
 
 .stat-card {

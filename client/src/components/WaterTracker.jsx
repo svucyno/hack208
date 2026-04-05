@@ -67,8 +67,8 @@ const WaterTracker = () => {
   }
 
   return (
-    <div className="card" style={{ marginBottom: '2rem', position: 'relative' }}>
-      <h3 style={{ color: 'var(--primary)', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+    <div className="card" style={{ padding: '1.5rem', marginBottom: '0', display: 'flex', flexDirection: 'column', height: '100%', position: 'relative' }}>
+      <h3 style={{ color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
         <span>💧</span> {t('Water Intake Tracker')}
       </h3>
 
@@ -89,11 +89,11 @@ const WaterTracker = () => {
         {t('Reset')}
       </button>
       
-      <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+      <div style={{ textAlign: 'center', margin: '2rem 0' }}>
         <h2 style={{ fontSize: '2.5rem', color: '#1abc9c', margin: '0' }}>
           {waterAmount} / {DAILY_GOAL} {t('ml')}
         </h2>
-        <p style={{ color: '#7f8c8d', fontStyle: 'italic', marginTop: '0.5rem' }}>
+        <p style={{ color: '#7f8c8d', fontStyle: 'italic', marginTop: '0.75rem' }}>
           {getFeedbackMessage()}
         </p>
       </div>
@@ -114,7 +114,7 @@ const WaterTracker = () => {
         }}></div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginTop: 'auto' }}>
         <button 
           onClick={() => addWater(250)}
           className="btn btn-primary" 

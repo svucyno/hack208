@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Apple, LayoutDashboard, User, MessageSquare, LogOut, Activity, Upload, Globe } from 'lucide-react';
+import { Apple, LayoutDashboard, User, MessageSquare, LogOut, Activity, Upload, Globe, Settings as SettingsIcon } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 const Navbar = ({ user, onLogout }) => {
   const navigate = useNavigate();
   const { language, setLanguage, t } = useLanguage();
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const settingsRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (settingsRef.current && !settingsRef.current.contains(event.target)) {
+        setSettingsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <nav style={{
@@ -27,7 +39,6 @@ const Navbar = ({ user, onLogout }) => {
         <Link to="/chat" className="nav-link"><MessageSquare size={20} title={t('Chatbot')} /></Link>
         <Link to="/bmi" className="nav-link"><Activity size={20} title={t('BMI Calculator')} /></Link>
         <Link to="/nutrition" className="nav-link"><Upload size={20} title={t('Upload Data')} /></Link>
-        <Link to="/profile" className="nav-link"><User size={20} title={t('Profile')} /></Link>
         
         <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
           <Globe size={16} color="var(--primary)" style={{ position: 'absolute', left: '10px', pointerEvents: 'none' }} />
@@ -47,6 +58,40 @@ const Navbar = ({ user, onLogout }) => {
             <option value="te" style={{ background: 'var(--card-bg)', color: 'var(--text-main)' }}>తెలుగు</option>
           </select>
           <div style={{ position: 'absolute', right: '10px', pointerEvents: 'none', fontSize: '0.7em' }}>▼</div>
+        </div>
+
+        <div style={{ position: 'relative' }} ref={settingsRef}>
+          <button 
+            onClick={() => setSettingsOpen(!settingsOpen)}
+            style={{ border: 'none', background: 'none', cursor: 'pointer', color: 'var(--text-main)', display: 'flex', alignItems: 'center' }}
+            title={t('Settings')}
+          >
+            <SettingsIcon size={20} style={{ transition: 'transform 0.3s ease', transform: settingsOpen ? 'rotate(45deg)' : 'rotate(0)' }} />
+          </button>
+          
+          {settingsOpen && (
+            <div style={{
+              position: 'absolute', top: '150%', right: 0,
+              background: 'var(--card-bg)', boxShadow: 'var(--shadow)',
+              borderRadius: '10px', padding: '0.5rem', minWidth: '150px',
+              border: '1px solid rgba(0,0,0,0.05)', animation: 'fadeIn 0.2s ease',
+              zIndex: 1000
+            }}>
+              <Link 
+                to="/profile" 
+                onClick={() => setSettingsOpen(false)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: '0.5rem',
+                  padding: '0.5rem 1rem', textDecoration: 'none', color: 'var(--text-main)',
+                  borderRadius: '6px', transition: 'background 0.2s ease, color 0.2s ease'
+                }}
+                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(46, 204, 113, 0.1)'; e.currentTarget.style.color = 'var(--primary)'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--text-main)'; }}
+              >
+                <User size={16} /> {t('Your Profile')}
+              </Link>
+            </div>
+          )}
         </div>
 
         <button onClick={onLogout} style={{ border: 'none', background: 'none', cursor: 'pointer', color: '#e74c3c' }} title={t('LogOut')}>

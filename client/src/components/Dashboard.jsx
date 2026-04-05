@@ -146,10 +146,10 @@ const Dashboard = () => {
         
         <div className="dashboard-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
           {Object.entries(dietPlan.meals).map(([meal, data]) => (
-            <div key={meal} className="diet-card" style={{ borderLeft: '4px solid #2ecc71' }}>
-              <h4 style={{ textTransform: 'capitalize', color: '#7f8c8d', marginBottom: '0.5rem' }}>{meal}</h4>
-              <div style={{ fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '0.25rem' }}>{data.name}</div>
-              <div style={{ color: '#27ae60', fontSize: '0.9rem' }}>{data.calories} kcal</div>
+            <div key={meal} className="diet-card" style={{ borderLeft: '4px solid #2ecc71', display: 'flex', flexDirection: 'column', gap: '0.5rem', height: '100%' }}>
+              <h4 style={{ textTransform: 'capitalize', color: '#7f8c8d', margin: 0 }}>{meal}</h4>
+              <div style={{ fontWeight: 'bold', fontSize: '1.1rem' }}>{data.name}</div>
+              <div style={{ color: '#27ae60', fontSize: '0.9rem', marginTop: 'auto' }}>{data.calories} kcal</div>
             </div>
           ))}
         </div>
