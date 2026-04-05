@@ -75,6 +75,19 @@ body {
   background-color: var(--primary-dark);
 }
 
+.nav-link {
+  color: var(--text-main);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.nav-link:hover {
+  color: var(--primary);
+  transform: translateY(-1px);
+}
+
 .input-group {
   margin-bottom: 1rem;
 }

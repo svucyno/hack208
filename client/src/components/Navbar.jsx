@@ -21,15 +21,16 @@ const Navbar = ({ user, onLogout }) => {
 
   return (
     <nav style={{
-      background: 'white',
+      background: 'var(--card-bg)',
       padding: '1rem 2rem',
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+      boxShadow: 'var(--shadow)',
       position: 'sticky',
       top: 0,
-      zIndex: 100
+      zIndex: 100,
+      transition: 'background-color 0.3s ease'
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'bold', fontSize: '1.25rem', color: 'var(--primary)' }}>
         <Apple /> {t('Nutri AI')}
@@ -46,7 +47,7 @@ const Navbar = ({ user, onLogout }) => {
             value={language}
             onChange={(e) => setLanguage(e.target.value)}
             style={{ 
-              border: '1px solid #ddd', background: 'transparent', cursor: 'pointer',
+              border: '1px solid var(--text-muted)', background: 'transparent', cursor: 'pointer',
               padding: '0.3rem 2rem 0.3rem 2rem', borderRadius: '20px', 
               fontWeight: '600', color: 'var(--text-main)', 
               appearance: 'none', outline: 'none'
@@ -74,7 +75,7 @@ const Navbar = ({ user, onLogout }) => {
               position: 'absolute', top: '150%', right: 0,
               background: 'var(--card-bg)', boxShadow: 'var(--shadow)',
               borderRadius: '10px', padding: '0.5rem', minWidth: '150px',
-              border: '1px solid rgba(0,0,0,0.05)', animation: 'fadeIn 0.2s ease',
+              border: '1px solid var(--text-muted)', animation: 'fadeIn 0.2s ease',
               zIndex: 1000
             }}>
               <Link 
@@ -83,10 +84,17 @@ const Navbar = ({ user, onLogout }) => {
                 style={{
                   display: 'flex', alignItems: 'center', gap: '0.5rem',
                   padding: '0.5rem 1rem', textDecoration: 'none', color: 'var(--text-main)',
-                  borderRadius: '6px', transition: 'background 0.2s ease, color 0.2s ease'
+                  borderRadius: '6px', transition: 'all 0.2s ease'
                 }}
-                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(46, 204, 113, 0.1)'; e.currentTarget.style.color = 'var(--primary)'; }}
-                onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--text-main)'; }}
+                className="settings-link"
+                onMouseEnter={e => { 
+                  e.currentTarget.style.background = 'var(--primary)'; 
+                  e.currentTarget.style.color = '#fff'; 
+                }}
+                onMouseLeave={e => { 
+                  e.currentTarget.style.background = 'transparent'; 
+                  e.currentTarget.style.color = 'var(--text-main)'; 
+                }}
               >
                 <User size={16} /> {t('Your Profile')}
               </Link>
