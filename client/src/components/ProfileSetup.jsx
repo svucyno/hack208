@@ -5,6 +5,17 @@ import { Camera, Trash2, User, Palette, Layers } from 'lucide-react';
 import ThemeSettings from './ThemeSettings';
 import { useLanguage } from '../context/LanguageContext';
 
+const AVATAR_OPTIONS = [
+  { id: 'av1', url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Felix' },
+  { id: 'av2', url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Aneka' },
+  { id: 'av3', url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Caleb' },
+  { id: 'av4', url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Mia' },
+  { id: 'av5', url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Jack' },
+  { id: 'av6', url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sasha' },
+  { id: 'av7', url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Leo' },
+  { id: 'av8', url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Zoe' }
+];
+
 const ProfileSetup = ({ onLogout }) => {
   const { t } = useLanguage();
   const [profile, setProfile] = useState({
@@ -13,6 +24,7 @@ const ProfileSetup = ({ onLogout }) => {
   });
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
+  const [showAvatars, setShowAvatars] = useState(false);
   const [activePanel, setActivePanel] = useState(null);
   const navigate = useNavigate();
 
@@ -56,6 +68,10 @@ const ProfileSetup = ({ onLogout }) => {
         alert(t('Failed to delete account'));
       }
     }
+  };
+
+  const handleAvatarSelect = (url) => {
+    setProfile(prev => ({ ...prev, avatar: url }));
   };
 
   const handleImageUpload = (e) => {
@@ -137,13 +153,54 @@ const ProfileSetup = ({ onLogout }) => {
 
         {/* ── Avatar Section ── */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '2rem' }}>
-          <div className={`avatar-circle${uploading ? ' uploading' : ''}`}>
+          <div 
+            className={`avatar-circle${uploading ? ' uploading' : ''}`}
+            onClick={() => setShowAvatars(!showAvatars)}
+            style={{ cursor: 'pointer', position: 'relative' }}
+            title={t('Click to choose avatar')}
+          >
             {profile.avatar ? (
               <img src={profile.avatar} alt="Profile Avatar" />
             ) : (
               <User size={60} color="var(--text-muted, #bdc3c7)" />
             )}
+            <div style={{
+              position: 'absolute',
+              bottom: '5px',
+              right: '5px',
+              background: 'var(--primary)',
+              borderRadius: '50%',
+              padding: '4px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              border: '2px solid var(--card-bg)'
+            }}>
+              <Camera size={12} color="#fff" />
+            </div>
           </div>
+
+          {(showAvatars || !profile.avatar) && (
+          <div className="avatar-selection-section" style={{ width: '100%', maxWidth: '400px', animation: 'fadeIn 0.3s ease' }}>
+            <p style={{ textAlign: 'center', fontWeight: '600', color: 'var(--text-main)', marginBottom: '1rem', fontSize: '0.95rem' }}>
+              {t('Choose an Avatar')}
+            </p>
+            <div className="avatar-grid">
+              {AVATAR_OPTIONS.map(av => (
+                <div 
+                  key={av.id}
+                  className={`avatar-item ${profile.avatar === av.url ? 'selected' : ''}`}
+                  onClick={() => handleAvatarSelect(av.url)}
+                  title={av.id}
+                >
+                  <img src={av.url} alt={`Avatar ${av.id}`} />
+                </div>
+              ))}
+            </div>
+
+            <span className="upload-label-sep">{t('Or upload your own photo')}</span>
+          </div>
+          )}
 
           <div style={{ marginTop: '1rem', display: 'flex', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center' }}>
             <label className="avatar-upload-btn" title={t("Upload a JPG or PNG (max 2 MB)")}>
