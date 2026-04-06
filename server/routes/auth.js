@@ -1,3 +1,4 @@
+const express = require('express');
 const User = require('../models/User');
 const Profile = require('../models/Profile');
 const FoodLog = require('../models/FoodLog');
@@ -7,6 +8,8 @@ const ThemePreference = require('../models/ThemePreference');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
+
+const JWT_SECRET = 'your-very-secret-key-change-it'; // In production, use env variables
 
 // Middleware to authenticate JWT (Shared logic)
 const authenticate = (req, res, next) => {
@@ -19,8 +22,6 @@ const authenticate = (req, res, next) => {
     next();
   });
 };
-
-const JWT_SECRET = 'your-very-secret-key-change-it'; // In production, use env variables
 
 // Register
 router.post('/register', async (req, res) => {

@@ -20,7 +20,12 @@ const ProfileSetup = ({ onLogout }) => {
     const fetchProfile = async () => {
       try {
         const res = await api.get('/profile');
-        if (res.data) setProfile(res.data);
+        if (res.data) {
+          setProfile({
+            ...res.data,
+            dietaryPreference: res.data.dietaryPreference || 'veg'
+          });
+        }
       } catch (err) {
         // no existing profile yet
       } finally {

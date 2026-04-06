@@ -29,7 +29,6 @@ const PRIMARY_PRESETS = [
 // ── Helper — apply bg color globally ────────────────────────────────────────
 function applyBgColor(hex) {
   document.documentElement.style.setProperty('--bg-base', hex);
-  document.documentElement.style.setProperty('--background', hex);
   localStorage.setItem('bgColor', hex);
 
   // Notify InteractiveBackground without a full remount

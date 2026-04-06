@@ -75,9 +75,11 @@ const { Op } = require('sequelize');
 const generateDietPlan = async (profile) => {
   const profileData = profile.toJSON ? profile.toJSON() : profile;
   const tdee = calculateCalories(profileData);
-  let pref = 'non-veg';
-  if (profileData.dietaryPreference === 'veg' || profileData.dietaryPreference === 'vegan') {
-    pref = 'veg';
+  let pref = 'veg'; // Default to veg for safety
+  if (profileData.dietaryPreference === 'non-veg') {
+    pref = 'non-veg';
+  } else if (profileData.dietaryPreference === 'vegan') {
+    pref = 'vegan';
   }
 
   const getMeal = async (type, target) => {
@@ -85,6 +87,7 @@ const generateDietPlan = async (profile) => {
       const dbMeals = await FoodNutrition.findAll({
         where: {
           category: { [Op.like]: `%${type}%` },
+          dietaryType: pref,
           calories: { [Op.between]: [target - 250, target + 250] }
         },
         limit: 5

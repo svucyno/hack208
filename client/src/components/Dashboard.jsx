@@ -76,7 +76,7 @@ const Dashboard = () => {
   return (
     <div style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-        <h1 style={{ color: 'var(--text-main)', margin: 0 }}>{t(getGreeting())}</h1>
+        <h1 style={{ color: 'var(--text-main)', margin: '0' }}>{t(getGreeting())}</h1>
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           
           <div className="streak-badge" title={streakData?.message || 'Daily Streak'}>
@@ -160,7 +160,15 @@ const Dashboard = () => {
         <WaterTracker />
       </div>
 
-      <div style={{ marginTop: '3rem', background: '#e8f5e9', padding: '1.5rem', borderRadius: 'var(--radius)', display: 'flex', gap: '1rem' }}>
+      <div style={{ 
+        marginTop: '3rem', 
+        background: isDarkMode ? 'rgba(46, 204, 113, 0.1)' : '#e8f5e9', 
+        padding: '1.5rem', 
+        borderRadius: 'var(--radius)', 
+        display: 'flex', 
+        gap: '1rem',
+        border: isDarkMode ? '1px solid rgba(46, 204, 113, 0.2)' : 'none'
+      }}>
         <Info color="#27ae60" />
         <div>
           <h4 style={{ color: '#2c3e50' }}>{t('Health Tip')}</h4>

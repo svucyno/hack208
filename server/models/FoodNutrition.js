@@ -30,6 +30,10 @@ const FoodNutrition = sequelize.define('FoodNutrition', {
   category: {
     type: DataTypes.STRING,
     allowNull: true
+  },
+  dietaryType: {
+    type: DataTypes.ENUM('veg', 'non-veg', 'vegan'),
+    defaultValue: 'veg'
   }
 });
 

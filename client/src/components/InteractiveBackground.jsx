@@ -35,7 +35,7 @@ const InteractiveBackground = () => {
   return (
     <div
       className="interactive-bg-container"
-      style={{ background: bgColor }}
+      style={{ background: 'var(--background)' }}
     >
       {/* Dual radial gradient tint that follows the primary + secondary colors */}
       <div
